@@ -34,7 +34,7 @@ export const Buttons = styled.button<Props>`
   display: flex;
   align-items: center;
   font-family: inherit;
-  transition: border-color 0.25s;
+  transition: ease-in 0.25s;
   background-color: ${props => bgColor(props.variant)};
   color: "white";
   width: max-content;
@@ -52,3 +52,16 @@ export const Buttons = styled.button<Props>`
     outline: 4px auto -webkit-focus-ring-color;
   }
 `;
+
+export const IconButton = styled.button`
+  padding: 0.25em .5em;
+  background-color: inherit;
+  border-radius: 3px;
+  width: max-content;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  &:focus, &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+`
