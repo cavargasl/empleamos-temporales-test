@@ -12,16 +12,18 @@ export default function Modal({ open, children, onClose, closeOverlay }: Porps) 
   if (!open) return null
 
   return createPortal(
-    <ModalOverlay onClick={closeOverlay ? onClose : () => null}>
+    <>
+      <ModalOverlay onClick={closeOverlay ? onClose : () => null} />
       <ModalStyled>
         <ModalClose>
-          <Buttons style={{padding: ".2rem"}}>
+          <Buttons style={{ padding: ".2rem" }} onClick={onClose}>
             <Close />
           </Buttons>
         </ModalClose>
         {children}
       </ModalStyled>
-    </ModalOverlay>,
+    </>,
+
     document.getElementById('modal') as HTMLElement
   )
 }
