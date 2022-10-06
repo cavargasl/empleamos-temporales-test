@@ -31,15 +31,15 @@ function hvColor(color?: "delete" | "edit" | "create") {
   }
 }
 export const Buttons = styled.button<Props>`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
   font-family: inherit;
   transition: border-color 0.25s;
   background-color: ${props => bgColor(props.variant)};
   color: "white";
   width: max-content;
   border: none;
-  font-size: 1em;
+  font-size: 1rem;
   padding: 0.40em 1em;
   border-radius: 3px;
   font-weight: 400;

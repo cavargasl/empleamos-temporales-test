@@ -36,10 +36,10 @@ export default function PostTable() {
 			renderCell: (items: GridRenderCellParams) => (
 				<ButtonsActions>
 					<Buttons variant="edit" onClick={() => setOpen(true)} >
-						<Edit />
+						<Edit fontSize='inherit' />
 					</Buttons>
 					<Buttons variant="delete" onClick={() => handleDelete(items.id as number)} >
-						<DeleteForever />
+						<DeleteForever fontSize='inherit' />
 					</Buttons>
 				</ButtonsActions>
 			)
