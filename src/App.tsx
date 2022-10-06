@@ -1,5 +1,5 @@
 import "./App.css"
-import { NavBar } from "./components/NavBar"
+import { NavBar } from "./components"
 import { Home } from "./page"
 import { LayoutContainer } from "./styled-components"
 

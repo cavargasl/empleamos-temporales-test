@@ -1,12 +1,14 @@
 import { DeleteForever, Edit } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useMemo, useState } from "react";
+import { Modal } from 'src/components';
 import { PostPreview } from "src/models";
 import { Buttons } from "src/styled-components/buttons.styled.components";
 import { deletePost, getListPost } from "./services";
 import { ButtonsActions } from "./styled-components";
 
 export default function PostTable() {
+	const [open, setOpen] = useState(false);
 	const pageSize = 5
 	const rowPerPage = 5
 	const [post, setPost] = useState<PostPreview[]>([])
@@ -33,7 +35,7 @@ export default function PostTable() {
 			field: 'actions', headerName: 'Acciones', type: 'actions', sortable: false, width: 150,
 			renderCell: (items: GridRenderCellParams) => (
 				<ButtonsActions>
-					<Buttons variant="edit" onClick={() => console.log(items.id)} >
+					<Buttons variant="edit" onClick={() => setOpen(true)} >
 						<Edit />
 					</Buttons>
 					<Buttons variant="delete" onClick={() => handleDelete(items.id as number)} >
@@ -44,15 +46,20 @@ export default function PostTable() {
 		}
 	], [])
 	return (
-		<DataGrid
-			disableColumnSelector
-			disableSelectionOnClick
-			autoHeight
-			rows={post}
-			columns={columns}
-			pageSize={pageSize}
-			rowsPerPageOptions={[rowPerPage]}
-			style={{ width: "100%" }}
-		/>
+		<>
+			<DataGrid
+				disableColumnSelector
+				disableSelectionOnClick
+				autoHeight
+				rows={post}
+				columns={columns}
+				pageSize={pageSize}
+				rowsPerPageOptions={[rowPerPage]}
+				style={{ width: "100%" }}
+			/>
+			<Modal open={open} onClose={() => setOpen(false)} closeOverlay>
+				<h1>yes</h1>
+			</Modal>
+		</>
 	)
 }
