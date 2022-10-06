@@ -1,7 +1,7 @@
 
-import { createPortal } from "react-dom"
-import { Buttons, ModalClose, ModalOverlay, ModalStyled } from "src/styled-components"
 import { Close } from '@mui/icons-material';
+import { createPortal } from "react-dom";
+import { IconButton, ModalClose, ModalOverlay, ModalStyled } from "src/styled-components";
 interface Porps {
   children: JSX.Element | JSX.Element[]
   open: boolean
@@ -16,9 +16,9 @@ export default function Modal({ open, children, onClose, closeOverlay }: Porps) 
       <ModalOverlay onClick={closeOverlay ? onClose : () => null} />
       <ModalStyled>
         <ModalClose>
-          <Buttons style={{ padding: ".2rem" }} onClick={onClose}>
-            <Close />
-          </Buttons>
+          <IconButton onClick={onClose}>
+            <Close color="action" />
+          </IconButton>
         </ModalClose>
         {children}
       </ModalStyled>
