@@ -21,13 +21,13 @@ function bgColor(color?: "delete" | "edit" | "create") {
 function hvColor(color?: "delete" | "edit" | "create") {
   switch (color) {
     case "create":
-      return green[200]
+      return green[600]
     case "edit":
-      return blue[200]
+      return blue[600]
     case "delete":
-      return red[500]
+      return red[900]
     default:
-      return grey[300]
+      return grey[700]
   }
 }
 export const Buttons = styled.button<Props>`

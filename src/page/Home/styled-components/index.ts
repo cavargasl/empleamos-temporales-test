@@ -1,1 +1,1 @@
-export * from './actions.style.components';
+export * from './layout.styled.components';
