@@ -4,18 +4,14 @@ const columns: GridColDef[] = [
 	{ field: 'id', headerName: 'ID', width: 70 },
 	{ field: 'firstName', headerName: 'First name', minWidth: 130, flex: 1 },
 	{ field: 'lastName', headerName: 'Last name', minWidth: 130, flex: 1 },
-	{
-		field: 'age',
-		headerName: 'Age',
-		type: 'number',
-		width: 90,
-	},
+	{ field: 'age', headerName: 'Age', type: 'number', width: 90 },
 	{
 		field: 'fullName',
 		headerName: 'Full name',
 		description: 'This column has a value getter and is not sortable.',
 		sortable: false,
-		width: 160,
+		minWidth: 160,
+		flex: 1,
 		valueGetter: (params: GridValueGetterParams) =>
 			`${params.row.firstName || ''} ${params.row.lastName || ''}`,
 	},
