@@ -12,8 +12,7 @@ import { ButtonsActions } from "./styled-components";
 
 export default function PostTable() {
 	const [open, setOpen] = useState(false);
-	const pageSize = 5
-	const rowPerPage = 5
+	const [page, setPage] = useState(5);
 	const [postSelected, setPostSelected] = useState<PostPreview>()
 	const listPostPreview = useSelector(selectListPostPreview)
 	const dispatch = useDispatch()
@@ -46,6 +45,7 @@ export default function PostTable() {
 			)
 		}
 	], [])
+
 	return (
 		<>
 			<DataGrid
@@ -54,9 +54,10 @@ export default function PostTable() {
 				autoHeight
 				rows={listPostPreview}
 				columns={columns}
-				pageSize={pageSize}
-				rowsPerPageOptions={[rowPerPage]}
+				pageSize={page}
+				rowsPerPageOptions={[5, 7, 10]}
 				style={{ width: "100%" }}
+				onPageSizeChange={(newPage) => setPage(newPage)}
 			/>
 			<Modal open={open} onClose={() => setOpen(false)} closeOverlay>
 				<FormPost data={postSelected} setOpen={setOpen} />
