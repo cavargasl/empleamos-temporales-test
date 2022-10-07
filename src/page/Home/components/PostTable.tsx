@@ -1,8 +1,10 @@
 import { DeleteForever, Edit } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'src/components';
 import { PostPreview } from "src/models";
+import { addPostPreview, deletePostPreview, selectListPostPreview } from 'src/redux/slices/post';
 import { Buttons } from "src/styled-components/buttons.styled.components";
 import FormPost from './FormPost';
 import { deletePost, getListPost, updatePartialPost } from "./services";
@@ -12,20 +14,12 @@ export default function PostTable() {
 	const [open, setOpen] = useState(false);
 	const pageSize = 5
 	const rowPerPage = 5
-	const [post, setPost] = useState<PostPreview[]>([])
 	const [postSelected, setPostSelected] = useState<PostPreview>()
-
-	const getPost = async () => {
-		const result = await getListPost()
-		setPost(result)
-	}
-
-	useEffect(() => {
-		getPost()
-	}, [])
+	const listPostPreview = useSelector(selectListPostPreview)
+	const dispatch = useDispatch()
 
 	function handleDelete(id: number) {
-		return deletePost(id).then(() => setPost(post => post.filter(item => item.id !== id))).catch(() => console.error("Error to delete"))
+		return deletePost(id).then(() => dispatch(deletePostPreview(id))).catch(() => console.error("Error to delete"))
 	}
 
 	function handleEdit(data: PostPreview) {
@@ -58,7 +52,7 @@ export default function PostTable() {
 				disableColumnSelector
 				disableSelectionOnClick
 				autoHeight
-				rows={post}
+				rows={listPostPreview}
 				columns={columns}
 				pageSize={pageSize}
 				rowsPerPageOptions={[rowPerPage]}

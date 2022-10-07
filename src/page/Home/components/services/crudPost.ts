@@ -15,7 +15,7 @@ interface UpdatePost {
   id: PostPreview["id"]
 }
 export async function updatePartialPost({ id, data }: UpdatePost) {
-  return axios.patch(`/posts/${id}`, { title: data.title, body: data.body })
+  return axios.patch(`/posts/${id}`, { title: data.title ?? undefined, body: data.body ?? undefined })
 }
 
 export async function createPost(data: PostPreview) {

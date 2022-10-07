@@ -11,3 +11,5 @@ export interface PostPreview {
   title: string
   body: string
 }
+
+export const ListPostPreviewEmptyState: PostPreview[] = []

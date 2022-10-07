@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from "react-redux"
 import { PostPreview } from "src/models"
+import { addPostPreview, modifyPostPreview, selectListPostPreview } from "src/redux/slices/post"
 import { Buttons, InputText, InputTextArea } from "src/styled-components"
 import { createPost, updatePartialPost } from "./services"
 import { FooterForm, FormControl, FormLabel, LayoutForm } from "./styled-components"
@@ -12,6 +14,8 @@ interface Props {
 }
 export default function FormPost({ data, setOpen, isCreate }: Props) {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<PostPreview>({ mode: "onSubmit" })
+  const dispatch = useDispatch()
+  const listPostPreview = useSelector(selectListPostPreview)
 
   useEffect(() => {
     if (data) {
@@ -21,10 +25,10 @@ export default function FormPost({ data, setOpen, isCreate }: Props) {
     }
   }, [data])
 
-  async function onSubmit(data: PostPreview) {
+  async function onSubmit(dataPartial: PostPreview) {
     try {
-      if (isCreate) return await createPost(data)
-      return await updatePartialPost({ id: data.id, data })
+      if (isCreate) return await createPost(dataPartial).then(res => dispatch(addPostPreview(listPostPreview.concat(res.data))))
+      return await updatePartialPost({ id: dataPartial.id, data: dataPartial }).then(res => dispatch(modifyPostPreview({ ...data, ...res.data })))
     } catch (error) {
       console.error(error)
     } finally {
@@ -36,7 +40,7 @@ export default function FormPost({ data, setOpen, isCreate }: Props) {
     <LayoutForm onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <FormLabel>ID del usuario</FormLabel>
-        <InputText type={"number"} disabled={!!data} {...register("userId", { required: "Campo obligatorio" })} isError={!!errors.userId} />
+        <InputText type={"number"} disabled={!!data?.userId} {...register("userId", { required: "Campo obligatorio" })} isError={!!errors.userId} />
       </FormControl>
       <FormControl>
         <FormLabel>Titulo</FormLabel>
